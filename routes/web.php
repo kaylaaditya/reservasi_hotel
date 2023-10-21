@@ -20,3 +20,4 @@ Route::get('/', function () {
 // Route::view('admin', 'layouts.admin');
 
 Route::view('admin', 'dashboard')->name('dashboard');
+Route::view('admin/admin', 'admin.index')->name('admin.index');
