@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::view('kamar', 'kamar')->name('kamar');
+
 
 // Route::view('admin', 'layouts.admin');
 
