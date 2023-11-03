@@ -22,6 +22,20 @@ Route::view('kamar', 'kamar')->name('kamar');
 
 // Route::view('admin', 'layouts.admin');
 
-Route::view('admin', 'dashboard')->name('dashboard');
-Route::view('admin/admin', 'admin.index')->name('admin.index');
-Route::view('admin/login', 'auth.login')->name('admin.login');
+// Route::view(config('admin.path').'/login', 'auth.login')->name('admin.login');
+
+
+Route::group([
+    'prefix' => config('admin.path'),
+], function () {
+    Route::get('login', 'LoginAdminController@formLogin')->name('admin.login');
+    Route::post('login', 'LoginAdminController@login');
+
+    Route::group(['middleware'=>'auth:admin'], function(){
+        Route::post('logout', 'LoginAdminController@logout')->name('admin.logout');
+
+        Route::view('/', 'dashboard')->name('dashboard');
+        Route::view('admin', 'admin.index')->name('admin.index');
+
+    });
+});

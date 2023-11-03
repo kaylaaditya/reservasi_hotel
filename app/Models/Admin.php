@@ -13,7 +13,7 @@ class Admin extends Authentificatble
         'name',
         'username',
         'password',
-        'role',
+        'role'
     ];
 
     protected $hidden=[
