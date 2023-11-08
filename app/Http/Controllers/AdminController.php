@@ -16,13 +16,13 @@ class AdminController extends Controller
     {
         $search = $request->search;
         $data = Admin::select('id', 'nama', 'username', 'role')
-        ->when($search, function($query, $search){
-            return $query->where('nama', 'like', "%{$search}%");
-        })
-        ->orderBy('id')
-        ->paginate(50);
+            ->when($search, function ($query, $search) {
+                return $query->where('nama', 'like', "%{$search}%");
+            })
+            ->orderBy('id')
+            ->paginate(5);
 
-        return view('admin.index',['data'=>$data]);
+        return view('admin.index', ['data' => $data]);
     }
 
     /**
@@ -32,7 +32,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -43,7 +43,19 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_lengkap' => 'required',
+            'username' => 'required|alpha_dash|unique:admins',
+            'password' => 'required|min:4|confirmed'
+        ]);
+        Admin::create([
+            'nama' => $request->nama_lengkap,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'role' => 'resepsionis',
+
+        ]);
+        return redirect()->route('admin.index')->with('status', 'store');
     }
 
     /**

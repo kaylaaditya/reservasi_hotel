@@ -31,15 +31,14 @@ Route::group([
     Route::get('login', 'LoginAdminController@formLogin')->name('admin.login');
     Route::post('login', 'LoginAdminController@login');
 
-    Route::group(['middleware'=>'auth:admin'], function(){
+    Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('logout', 'LoginAdminController@logout')->name('admin.logout');
 
         Route::view('/', 'dashboard')->name('dashboard');
-        
-        Route::group(['middleware' => ['can:role,"admin"']], function(){
-            // Route::view('admin', 'admin.index')->name('admin.index');
-            Route::resource('admin', 'AdminController');
-        });
 
+        Route::group(['middleware' => ['can:role,"admin"']], function () {
+            // Route::view('admin', 'admin.index')->name('admin.index');
+            Route::resource('/admin', 'AdminController');
+        });
     });
 });
