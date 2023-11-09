@@ -66,7 +66,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -75,9 +75,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( Admin $admin)
     {
-        //
+        return view('admin.edit',['row'=>$admin]);
     }
 
     /**
@@ -87,9 +87,30 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Admin $admin)
     {
-        //
+        $request->validate([
+            'nama_lengkap' => 'required',
+            'username' => "required|alpha_dash|unique:admins,username,{$admin->id}",
+            'password' => 'nullable|min:4|confirmed'
+        ]);
+        
+        if($request->password){
+            $arr = [
+                'nama' =>$request->nama_lengkap,
+            'username' =>$request->username,
+            'password' =>bcrypt($request->password),
+            ];
+        } else{
+            $arr =[
+            'nama' =>$request->nama_lengkap,
+            'username' =>$request->username,
+            ];
+        }
+        $admin->update($arr);
+
+        return redirect()->route('admin.index')->with('status', 'update');
+
     }
 
     /**
@@ -98,8 +119,10 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Admin $admin)
     {
-        //
+        $admin->delete();
+
+        return redirect()->route('admin.index')->with('status', 'destroy');
     }
 }

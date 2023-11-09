@@ -1,7 +1,7 @@
 @props(['action'])
 <form action="{{ $action }}" method="post" class="card card-primary">
     <div class="card-header">
-        <i class="fas fa-plus-circle"></i> Tambah
+        <i class="fas fa-plus-circle"></i> Form Tambah
     </div>
     <div class="card-body">
         <?= $slot ?>

@@ -19,6 +19,7 @@
                 <th>Nama User</th>
                 <th>Username</th>
                 <th>Role</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,10 @@
                 <td>{{ $row->nama }}</td>
                 <td>{{ $row->username }}</td>
                 <td>{{ $row->role }}</td>
+                <td>
+                    <x-btn-edit :link="route('admin.edit', ['admin'=>$row->id])" />
+                    <x-btn-delete :link="route('admin.destroy', ['admin'=>$row->id])" />
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -38,4 +43,8 @@
         {{ $data->appends(['search' => request()->search ])->links('page') }}
     </div>
 </div>
+@endsection
+
+@section('modal')
+<x-modal-delete />
 @endsection

@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-6">
         <x-form-create :action="route('admin.store')">
-            <x-input label="Nama Lengkap" name="nama_lengkap" value="old('nama_lengkap')" />
+            <x-input label="Nama Lengkap" name="nama_lengkap"  />
             <x-input label="Username" name="username" />
             <x-input label="Password" name="password" type="password"/>
             <x-input label="Konfirmasi Password" name="password_confirmation" type="password"/>
