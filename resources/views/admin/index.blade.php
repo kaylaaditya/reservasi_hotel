@@ -9,8 +9,14 @@
 <x-status />
 <div class="card">
     <div class="card-header">
-        <x-btn-create :link="route('admin.create')" />
-        <x-search />
+        <div class="row">
+            <div class="col">
+                <x-btn-create :link="route('admin.create')" />
+            </div>
+            <div class="col">
+                <x-search />
+            </div>
+        </div>
     </div>
     <x-card-table>
         <thead>
