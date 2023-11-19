@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -75,9 +76,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit( Admin $admin)
+    public function edit(Admin $admin)
     {
-        return view('admin.edit',['row'=>$admin]);
+        return view('admin.edit', ['row' => $admin]);
     }
 
     /**
@@ -94,23 +95,22 @@ class AdminController extends Controller
             'username' => "required|alpha_dash|unique:admins,username,{$admin->id}",
             'password' => 'nullable|min:4|confirmed'
         ]);
-        
-        if($request->password){
+
+        if ($request->password) {
             $arr = [
-                'nama' =>$request->nama_lengkap,
-            'username' =>$request->username,
-            'password' =>bcrypt($request->password),
+                'nama' => $request->nama_lengkap,
+                'username' => $request->username,
+                'password' => bcrypt($request->password),
             ];
-        } else{
-            $arr =[
-            'nama' =>$request->nama_lengkap,
-            'username' =>$request->username,
+        } else {
+            $arr = [
+                'nama' => $request->nama_lengkap,
+                'username' => $request->username,
             ];
         }
         $admin->update($arr);
 
         return redirect()->route('admin.index')->with('status', 'update');
-
     }
 
     /**
@@ -124,5 +124,38 @@ class AdminController extends Controller
         $admin->delete();
 
         return redirect()->route('admin.index')->with('status', 'destroy');
+    }
+
+    public function akun()
+    {
+        $admin = Auth::user();
+        return view('admin.akun', ['row' => $admin]);
+    }
+
+    public function updateAkun(Request $request)
+    {
+        $admin = Auth::user();
+
+        $request->validate([
+            'nama_lengkap' => 'required',
+            'username' => "required|alpha_dash|unique:admins,username,{$admin->id}",
+            'password' => 'nullable|min:4|confirmed'
+        ]);
+
+        if ($request->password) {
+            $arr = [
+                'nama' => $request->nama_lengkap,
+                'username' => $request->username,
+                'password' => bcrypt($request->password),
+            ];
+        } else {
+            $arr = [
+                'nama' => $request->nama_lengkap,
+                'username' => $request->username,
+            ];
+        }
+        $admin->update($arr);
+
+        return back()->with('status', 'update');
     }
 }

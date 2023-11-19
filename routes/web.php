@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,10 +36,13 @@ Route::group([
         Route::post('logout', 'LoginAdminController@logout')->name('admin.logout');
 
         Route::view('/', 'dashboard')->name('dashboard');
+        Route::get('/akun', 'AdminController@akun')->name('admin.akun');
+        Route::put('/akun', 'AdminController@updateAkun');
 
         Route::group(['middleware' => ['can:role,"admin"']], function () {
             // Route::view('admin', 'admin.index')->name('admin.index');
             Route::resource('/admin', 'AdminController');
+            Route::resource('/kamar', 'KamarController');
         });
     });
 });
