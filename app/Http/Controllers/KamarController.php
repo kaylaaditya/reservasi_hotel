@@ -32,7 +32,7 @@ class KamarController extends Controller
      */
     public function create()
     {
-        //
+        return view('kamar.create');
     }
 
     /**
@@ -43,7 +43,13 @@ class KamarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_kamar'=>'required|min:3',
+            'foto'=>'required|image|mimes:png,jpg,jpeg|dimensions:min_width=1000,min_height=500|between:100,1000',
+            'jumlah'=>'required',
+            'harga'=>'required',
+            'deskripsi'=>'required|min:5'
+        ]);
     }
 
     /**

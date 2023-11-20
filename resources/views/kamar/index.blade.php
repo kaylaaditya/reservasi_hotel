@@ -1,7 +1,7 @@
 @extends('layouts.admin',['$title'=>'Kamar'])
 
 @section('content-header')
-<h1 class="m-0"> <i class="fas fa-users"></i>Kamar</h1>
+<h1 class="m-0"> <i class="fas fa-bed"></i>Kamar</h1>
 @endsection
 
 @section('content')
