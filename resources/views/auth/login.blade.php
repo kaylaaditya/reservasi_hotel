@@ -76,7 +76,9 @@
             }(w, d, "zarazData", "script");
         })(window, document);
     </script>
+    
 </head>
+
 
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -84,8 +86,8 @@
             <a href="{{ url('/') }}"><b>Hotel</b> Pangandaran</a>
         </div>
 
-        <div class="card">
-            <div class="card-body login-card-body">
+        <div class="card" >
+            <div class="card-body login-card-body" style="background-color: #7C93C3; padding: 20px; border-radius: 8px;">
                 <p class="login-box-msg">Masuk untuk memulai sesi anda</p>
                 <form action="" method="post">
                     <div class="input-group mb-3">
@@ -121,7 +123,7 @@
                         </div>
 
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">
+                            <button type="submit" class="btn btn-block" style="background-color: #7C93C3; ">
                                 <i class="fas fa-sign-in-alt"></i> Log In
                             </button>
                         </div>
